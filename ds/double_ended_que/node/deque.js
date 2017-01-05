@@ -51,7 +51,8 @@ var init = function(){
 	}
 	dq.popFront = function(){
 		if(this.isEmpty()){
-			console.log("Front is NULL, EMPTY DEQUE")
+			console.log("Front is NULL, EMPTY DEQUE");
+			return null;
 		}else{
 			var nodeToPop = this.front;
 			var nextNode = nodeToPop.back;
@@ -59,11 +60,13 @@ var init = function(){
 				nextNode.front = null;
 			}
 			this.front = nextNode;
+			return nodeToPop.value;
 		}
 	}
 	dq.popBack = function(){
 		if(this.isEmpty()){
-			console.log("back is NULL, EMPTY DEQUE")
+			console.log("back is NULL, EMPTY DEQUE");
+			return null;
 		}else{
 			var nodeToPop = this.back;
 			var previousNode = nodeToPop.front;
@@ -71,6 +74,7 @@ var init = function(){
 				previousNode.back = null;
 			}
 			this.back = previousNode;
+			return nodeToPop.value;
 		}
 	}
 	dq.createNode = function(frontPtr,backPtr,data){
