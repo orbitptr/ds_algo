@@ -87,9 +87,10 @@ deque.prototype.pushBack = function(value){
 	this.length++;
 }
 
-deque.prototype.popFront = function(){
+deque.prototype.popFront = function(){	
 	if(this.isEmpty()){
 		console.log("Front is NULL, EMPTY DEQUE")
+		return null;
 	}else{
 		var nodeToPop = this.front;
 		var nextNode = nodeToPop.back;
@@ -97,22 +98,25 @@ deque.prototype.popFront = function(){
 			nextNode.front = null;
 		}
 		this.front = nextNode;
+		this.length--;
+		return nodeToPop.value;
 	}
-	this.length--;
 }
 
 deque.prototype.popBack = function(){
 	if(this.isEmpty()){
 		console.log("back is NULL, EMPTY DEQUE")
+		return null;
 	}else{
 		var nodeToPop = this.back;
 		var previousNode = nodeToPop.front;
 		if(previousNode != null){
 			previousNode.back = null;
 		}
+		this.length--;
 		this.back = previousNode;
+		return nodeToPop.value;
 	}
-	this.length--;
 }
 
 deque.prototype.createNode = function(frontPtr,backPtr,data){
