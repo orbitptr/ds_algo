@@ -34,9 +34,7 @@ stack.prototype.push = function(value){
 	if(this.isEmpty()){
 		this.createFirstNode(value);
 	}else{
-		var previousTopNode = this.top;
-		var newNode = this.createNode(null,previousTopNode,value);
-		newNode.bottom = previousTopNode;
+		var newNode = this.createNode(null,this.top,value);
 		this.top = newNode;
 	}
 	this.length++;
