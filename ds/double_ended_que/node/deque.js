@@ -1,7 +1,12 @@
-var deque = function(){
+var deque = function(debug){
+	this.init(debug);	
+}
+
+deque.prototype.init = function(debug) {
 	this.front = null;
 	this.back = null;
-	this.length = 0;	
+	this.length = 0;
+	this.isDebug = debug;
 }
 
 deque.prototype.createFirstNode = function(value){
@@ -22,7 +27,7 @@ deque.prototype.size = function(){
 
 deque.prototype.readFront = function(){
 	if(this.isEmpty()){
-		console.log("Front is NULL, EMPTY DEQUE")
+		if(this.isDebug)console.log("Front is NULL, EMPTY DEQUE")
 		return null;
 	}else{
 		return this.front.value;
@@ -31,7 +36,7 @@ deque.prototype.readFront = function(){
 
 deque.prototype.readIndexFromFront = function(index){
 	if(this.isEmpty()){
-		console.log("readFrontAt is NULL, EMPTY DEQUE")
+		if(this.isDebug)console.log("readFrontAt is NULL, EMPTY DEQUE")
 		return null;
 	}else{
 		if(index < this.length){
@@ -48,7 +53,7 @@ deque.prototype.readIndexFromFront = function(index){
 
 deque.prototype.readIndexFromBack = function(indexFromBack){
 	if(this.isEmpty()){
-		console.log("readFrontAt is NULL, EMPTY DEQUE")
+		if(this.isDebug)console.log("readFrontAt is NULL, EMPTY DEQUE")
 		return null;
 	}else{
 		if(indexFromBack < this.length){
@@ -89,7 +94,7 @@ deque.prototype.pushBack = function(value){
 
 deque.prototype.popFront = function(){	
 	if(this.isEmpty()){
-		console.log("Front is NULL, EMPTY DEQUE")
+		if(this.isDebug)console.log("Front is NULL, EMPTY DEQUE")
 		return null;
 	}else{
 		var nodeToPop = this.front;
@@ -105,7 +110,7 @@ deque.prototype.popFront = function(){
 
 deque.prototype.popBack = function(){
 	if(this.isEmpty()){
-		console.log("back is NULL, EMPTY DEQUE")
+		if(this.isDebug)console.log("back is NULL, EMPTY DEQUE")
 		return null;
 	}else{
 		var nodeToPop = this.back;
@@ -125,6 +130,38 @@ deque.prototype.createNode = function(frontPtr,backPtr,data){
 	node.back = backPtr;
 	node.value = data;
 	return node;
+}
+
+deque.prototype.addAllBack = function(inputDeque){
+	if(inputDeque.isEmpty() ){
+		if(this.isDebug)console.log("EMPTY DEQUE")
+		return null;
+	}else{
+		var node = inputDeque.front;
+		while(node != null){
+			this.pushBack(node.value);
+			node = node.back;
+		}
+	}
+}
+
+deque.prototype.clear = function(inputDeque){
+	this.init(this.isDebug);
+}
+
+deque.prototype.print = function(){
+	if(this.isEmpty()){
+		if(this.isDebug)console.log("Dque Empty")
+		return null;
+	}else{
+		var node = this.front;
+		var i=0;
+		while(node != null){
+			console.log("Deque["+i+"]:"+node.value);
+			node = node.back;
+			i++;
+		}
+	}
 }
 
 module.exports = deque;
