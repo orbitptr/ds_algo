@@ -1,4 +1,4 @@
-var deque_module = require('../ds/double_ended_que/node/deque.js');
+var deque_module = require('../../ds/double_ended_que/node/deque.js');
 var debug = false;
 
 var dq1 = new deque_module();
