@@ -1,10 +1,9 @@
 var deque_module = require('../../ds/double_ended_que/node/deque.js');
-var debug = false;
-
+var debug = true;
 var dq1 = new deque_module();
 var dq2 = new deque_module();
-
 var answer = new deque_module();
+
 var arr = [1,1,1,1,1,2,3,4,5,4,3,10,2,1];
 var arr = [1,1,1,1,1,2,2,2,2,2,2,2,2,6,2,3,4,5,4,3,10,2,1];
 var arr = [1,2,3,10,2,3,3,4,4,5,4,4,2];
@@ -12,15 +11,15 @@ var arr = [1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,6,6,2,6,6,6,6,6,6,6];
 var arr = [2,1,1,1,1,1,1,1,1,1,1,1];
 var arr = [1,2,3,10,2,3,3,4,4,4,4,5,4,4,2];
 var arr = [1,2,3,4,5,4,3,10,2,1];
-var arr = [1,1,3,2,2,1,1,2,2];
 var arr = [1,1,3,2,2,1,1,2,2,3,3,3,100];
-var arr = [5,6,7,5,7,7,7,6,5,6,8];
-
 var arr = [1,1,1,1,1,1,1,67,1,1,1,1,1,1,1,1,1,10,3,2,2,1,1,2,2,3,3,3,4,4,99,7,7,7,7,7,7,7,8,7,7,7,7,7,7,7,7,7,7];
+var arr = [1,1,3,2,2,1,1,2,2];
+var arr = [5,6,7,5,7,7,7,7,6,5,6,8];
+
+
 dq1.pushBack(arr[0]);
 var lastElem = null;
 var isSeries= false;
-
 for(var i=1;i<arr.length;i++){
 	var elem = arr[i];
 	if(debug)console.log("START:"+elem);
@@ -67,7 +66,6 @@ for(var i=1;i<arr.length;i++){
 }
 if(debug)console.log("Last print");
 if(debug)dq2.print();
-
 if(answer.size()<=dq2.size()){
 	answer.clear();
 	answer.addAllBack(dq2);
