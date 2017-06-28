@@ -1,0 +1,46 @@
+/Users/stark/Desktop/CandidateCode.java
+printWorkerList 
+Skill 1
+Desig:0
+Desig:3
+Skill 2
+Desig:1
+Skill 3
+Desig:2
+
+
+
+printJobList 
+Skill 1
+ pri:40 time:10 id:101
+ pri:40 time:9 id:111
+ pri:20 time:10 id:106
+ pri:90 time:15 id:107
+ pri:50 time:5 id:110
+Skill 2
+ pri:10 time:5 id:102
+ pri:20 time:5 id:105
+ pri:30 time:20 id:108
+Skill 3
+ pri:90 time:15 id:103
+ pri:91 time:20 id:104
+ pri:40 time:5 id:109
+
+ 
+printJobList 
+Skill 1
+ pri:90 time:15 id:107
+ pri:50 time:5 id:110
+ pri:40 time:9 id:111
+ pri:40 time:10 id:101
+ pri:20 time:10 id:106
+Skill 2
+ pri:30 time:20 id:108
+ pri:20 time:5 id:105
+ pri:10 time:5 id:102
+Skill 3
+ pri:91 time:20 id:104
+ pri:90 time:15 id:103
+ pri:40 time:5 id:109
+
+[Finished in 0.9s]
