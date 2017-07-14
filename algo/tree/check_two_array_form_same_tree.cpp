@@ -1,3 +1,4 @@
+//check if two given arrays form the same binary tree
 #include <iostream>
 #include <cstdlib>
 #include <cstdio>
@@ -6,16 +7,17 @@
 #include <iomanip>
 using namespace std;
 
+class BinaryTreeNode{
+public:
+	BinaryTreeNode *left;
+	BinaryTreeNode *right;
+	int key;
+	void print(){
+		cout<<this->key<<' ';
+	}
+};
 class BinaryTree{
-	class BinaryTreeNode{
-	public:
-		BinaryTreeNode *left;
-		BinaryTreeNode *right;
-		int key;
-		void print(){
-			cout<<this->key<<' ';
-		}
-	};
+
 	public:
 	BinaryTreeNode* root;
 	BinaryTree(){
@@ -33,7 +35,7 @@ class BinaryTree{
 		this->root = newNode(key);
 	}
 
-	BinaryTreeNode* newNode(int key){
+	static BinaryTreeNode* newNode(int key){
 		BinaryTreeNode* node = (BinaryTreeNode*)malloc(sizeof(BinaryTreeNode));
 		node->key = key;
 		node->left = NULL;
@@ -208,16 +210,152 @@ class BinaryTree{
 	}
 };
 
+
+int findFirst(int a[],int size,int starting_index,bool isMinSearch,int curr,int prev,bool isLeftSubtree){
+	cout<<endl<<"finding min for curr:"<<curr<<" prev:"<<prev<<endl;
+	// for (int i = 0; i<size; i++){
+	//     cout<<" " << a[i];
+	// }
+	// cout<<endl;
+
+	for(int i=starting_index;i<size;i++){
+		// cout<<endl<<"finding min a[i]: "<<a[i];
+		if(isMinSearch){
+			if(isLeftSubtree){
+				if(a[i]<curr){ return i;}
+			}else{
+				if((a[i]<curr) && (a[i] > prev)){ return i;}
+			}
+		}
+		else{
+			if(isLeftSubtree){
+				if((a[i]>curr) && (a[i] < prev)){ return i;}
+			}else{
+				if(a[i]>curr){ return i;}
+			}
+		}
+	}
+	return -1;
+}
+
+int findFirst(int a[],int size,int starting_index,bool isMinSearch,int curr){
+	// cout<<endl<<"finding min for value:"<<value<<endl;
+	// for (int i = 0; i<size; i++){
+	//     cout<<" " << a[i];
+	// }
+	// cout<<endl;
+
+	for(int i=starting_index;i<size;i++){
+		// cout<<endl<<"finding min a[i]: "<<a[i];
+		if(isMinSearch){
+			if(a[i]<curr) return i;
+		}
+		else{
+			if(a[i]>curr) return i;
+		}
+	}
+	return -1;
+}
+
+/*bool checkSameBST2(int t1[],int t2[],int r1,int r2,int s1,int s2,int prev){
+	cout<<endl<<"staring with:"<<t1[r1]<<"<---->"<<t2[r2]<<" r1:"<<r1<<" r2:"<<r2 <<" prev:"<<prev;
+	if((r1==-1)&&(r2==-1)) {cout<<endl<<"<-true ((r1==-1)&&(r2==-1))";return true;}// leaf node
+	if((r1==-1)^(r2==-1)) {cout<<endl<<"<-false ((r1==-1)^(r2==-1))";return false;} // one have root value and other is not
+	if(s1 != s2) {cout<<endl<<"<-false s1 != s2 ";return false;}
+	// cout<<endl<<t1[r1]<<"<-->"<<t2[r2];
+	if(t1[r1] != t2[r2]) {cout<<endl<<"<-false (t1[r1] != t2[r2]) ";return false;}
+
+
+	int curr = t1[r1];
+	bool isLeftSubtree = (curr<prev)?true:false;
+	//left
+	if(r1 == 0){
+		int t1_min = findFirst(t1,s1,r1+1,true,curr);
+		int t2_min = findFirst(t2,s2,r2+1,true,curr);
+		if(!checkSameBST(t1,t2,t1_min,t2_min,s1,s2,curr)) 
+			return false;
+		int t1_max = findFirst(t1,s1,r1+1,false,curr);
+		int t2_max = findFirst(t2,s2,r2+1,false,curr);
+		if(!checkSameBST(t1,t2,t1_max,t2_max,s1,s2,curr))
+			return false;
+	}else{
+		
+		int t1_min = findFirst(t1,s1,r1+1,true,curr,prev,isLeftSubtree);
+		int t2_min = findFirst(t2,s2,r2+1,true,curr,prev,isLeftSubtree);
+		int t1_max = findFirst(t1,s1,r1+1,false,curr,prev,isLeftSubtree);
+		int t2_max = findFirst(t2,s2,r2+1,false,curr,prev,isLeftSubtree);
+		cout<<endl<<"             t1_min:"<<t1_min<<" t2_min:"<<t2_min<<" t1_max:"<<t1_max<<" t2_max:"<<t2_max;
+		if(!checkSameBST(t1,t2,t1_min,t2_min,s1,s2,curr)) 
+			return false;
+		if(!checkSameBST(t1,t2,t1_max,t2_max,s1,s2,curr))
+			return false;		
+	}
+	return true;
+}*/
+
+bool checkSameBST(int t1[],int t2[],int r1,int r2,int s1,int s2){
+	cout<<endl<<"staring with:"<<t1[r1]<<"<---->"<<t2[r2]<<" r1:"<<r1<<" r2:"<<r2;
+	if((r1==-1)&&(r2==-1)) {cout<<endl<<"<-true ((r1==-1)&&(r2==-1))";return true;}// leaf node
+	if((r1==-1)^(r2==-1)) {cout<<endl<<"<-false ((r1==-1)^(r2==-1))";return false;} // one have root value and other is not
+	if(s1 != s2) {cout<<endl<<"<-false s1 != s2 ";return false;}
+	if(t1[r1] != t2[r2]) {cout<<endl<<"<-false (t1[r1] != t2[r2]) ";return false;}
+	int curr = t1[r1];
+
+
+	int t1_min = findFirst(t1,s1,r1+1,true,curr);
+	int t2_min = findFirst(t2,s2,r2+1,true,curr);
+	if(!checkSameBST(t1,t2,t1_min,t2_min,s1,s2)) 
+		return false;
+	int t1_max = findFirst(t1,s1,r1+1,false,curr);
+	int t2_max = findFirst(t2,s2,r2+1,false,curr);
+	if(!checkSameBST(t1,t2,t1_max,t2_max,s1,s2))
+		return false;
+
+
+	return true;
+}
+int printArrayWithIndex(int a[],int size){
+	cout<<endl<<" [";
+	for(int i=0;i<size;i++){
+		cout<<" ("<<i<<')'<<a[i];
+	}
+	cout<<"]";
+}
 int main(){
-	int a1[]={8,10,12,9,11,4,6,3,7,2};
-	int a2[]={8,4,6,3,10,12,9,11,7};
+	int a1[]={8,10,12,9,11,4,6,3,7};
+	int a2[]={8,10,9,12,11,4,6,3,7};
+	// int a2[]={8,10,4,7,11,9,12,3,6};
+
+
+	// int a2[]={8,4,6,3,10,12,9,11,7};
+	// int a2[]={8,4,7,3,10,12,9,11,6};
 	int na1 = (sizeof(a1)/sizeof(int));
 	int na2 = (sizeof(a2)/sizeof(int));
+	printArrayWithIndex(a1,na1);
+	printArrayWithIndex(a2,na2);
 	BinaryTree t1(a1,na1);
 	BinaryTree t2(a2,na2);
-	t1.printInorder();
 	t1.printLevelOrder();
-	t1.deleteNode(8);
-	t1.printLevelOrder();
+	t2.printLevelOrder();
+	// cout<<endl<<"checkSameBST - "<<checkSameBST(a1,a2,0,0,na1,na2,a1[0]);
+	cout<<endl<<"checkSameBST2 - "<<checkSameBST(a1,a2,0,0,na1,na2);
 	return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
