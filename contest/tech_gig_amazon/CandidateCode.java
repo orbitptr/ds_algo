@@ -86,7 +86,7 @@ public class CandidateCode {
 					}
 					//optimize here
 					workerList.remove(0);
-					workerList.trimToSize();
+					//workerList.trimToSize();
 					binarySearchAndInsert(workerList,selectedWorker);
 					// WorkerWaitingTimeComparator wokerComp = new WorkerWaitingTimeComparator();
 					// Collections.sort(workerList,wokerComp);

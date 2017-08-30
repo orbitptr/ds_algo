@@ -1,0 +1,106 @@
+stark@starks-MacBook-Pro:~/rp/ds_algo/contest/tech_gig_amazon$ prun ./AmazonPQ.java
+
+String[] ip1 = {"W1#S1","W2#S2","W3#S3","W4#S1"};
+		String[] ip2 = 
+		{
+			"S1#40#10#101",
+			"S2#10#5#102",
+			"S3#90#15#103",
+			"S3#91#20#104",
+			"S2#20#5#105",
+			"S1#20#10#106",
+			"S1#90#15#107",
+			"S2#30#20#108",
+			"S3#40#5#109",
+			"S1#50#5#110"};
+
+
+
+
+			
+printJobList 
+Skill 1
+ pri:90 time:15 id:107
+ pri:50 time:5 id:110
+ pri:40 time:10 id:101
+ pri:20 time:10 id:106
+Skill 2
+ pri:30 time:20 id:108
+ pri:20 time:5 id:105
+ pri:10 time:5 id:102
+Skill 3
+ pri:91 time:20 id:104
+ pri:90 time:15 id:103
+ pri:40 time:5 id:109
+W1#107#106
+W2#108#105#102
+W3#104#103#109
+W4#110#101
+
+stark@starks-MacBook-Pro:~/rp/ds_algo/contest/tech_gig_amazon$ 
+
+
+
+
+
+//new test case
+ArrayList<String> workers = new ArrayList();
+ArrayList<String> jobs = new ArrayList();
+for(int i=0;i<1000;i++){
+	String worker = "W"+(i+1)+"#S1";
+	workers.add(worker);
+}
+for(int i=1;i<=10000;i++){
+	double radians = Math.toRadians(i);	
+	int sine = Math.sin(radians);
+	int time = 100*sine;
+	int priority = Math.abs(sine*100);
+	String worker = "S1#"priority+"#"+time+"#"+(i+1);
+	workers.add(worker);
+}
+
+
+String[] ip1 = workers.toArray(new String[workers.size()]);
+String[] ip2 = jobs.toArray(new String[jobs.size()]);
+
+String[] ip1 = {"W1#S1","W2#S2","W3#S3","W4#S1","W4#S1","W4#S1","W4#S1","W4#S1","W4#S1","W4#S1","W4#S1","W4#S1","W4#S1"};
+		String[] ip2 = 
+		{
+			"S1#40#10#101",
+			"S2#10#5#102",
+			"S3#90#15#103",
+			"S3#91#20#104",
+			"S2#20#5#105",
+			"S1#20#10#106",
+			"S1#90#15#107",
+			"S2#30#20#108",
+			"S3#40#5#109",
+			"S1#50#5#110"};
+
+
+
+
+
+100/100 - 15/22
+1000/10000 - 214/286
+1000/100000 - 936/1336/ 823/1359
+
+
+
+
+
+
+
+
+
+
+
+
+
+Total time:5865
+Total time:6201
+
+
+
+
+
