@@ -6,7 +6,64 @@
 using namespace std;
 
 int gcd(int a, int b) {
-    return b == 0 ? a : gcd(b, a % b);
+  int r;
+  while(b!=0 ){
+    r = a % b;
+    a = b;
+    b = r;
+  }
+  return a;
+}
+
+int maxSumGcd(int a[],int b[],int n){
+    sort(a,a+n,greater<int>());
+    sort(b,b+n,greater<int>());
+    int lastGcd = -1;
+    int p1=0,p2=0;
+    int n1,n2;
+    bool done = false;
+
+
+    for(int i=0;i<n;i++){
+        if(a[i] <= lastGcd){
+            break;
+        }else{
+            for(int j=0;j<n;j++){                
+                int n1,n2,r;
+                bool shouldProceed = true;
+                while(n2!=0 ){
+                    r = n1 % n2;
+                    n1 = n2;
+                    n2 = r;
+                    if(a <= lastGcd){
+                        shouldProceed = false;
+                        break;
+                    }
+                }
+                if(!shouldProceed) boolreak;
+                int currentGcd = n1;
+                if(lastGcd<currentGcd){
+                    lastGcd = currentGcd;
+                    p1 = a[i];
+                    p2 = b[j];
+                }else if(lastGcd ==  currentGcd){
+                    if((p1+p2) < (a[i]+b[j])){
+                        p1 = a[i];
+                        p2 = b[j];
+                    }
+                }
+                if(currentGcd == min(a[i],b[j])){
+                    break;
+                }
+                if(currentGcd > min(a[i],b[j])){
+                    done = true;
+                    break;
+                }
+            }
+        }
+        if(done) break;
+    }
+    return (p1+p2);
 }
 
 int main() {
@@ -21,66 +78,7 @@ int main() {
     for(int i=0;i<n;i++){
         cin>>(b[i]);
     }
-    sort(a,a+n,greater<int>());
-    sort(b,b+n,greater<int>());
-
-
-
-    int maxGcd = -1;
-    int p1,p2;
-    int ai =0 ,bi = 0;
-    int arrnum = (a[ai]>b[bi])?1:2;
-    bool done = false;
-
-
-
-    while(true){
-        if((ai>=n) || (bi>=n)){
-            break;
-        }
-        cout<<endl<<"ai-"<<ai<<" bi-"<<bi<<endl;    
-        cout<<endl<<a[ai]<<"-"<<b[bi];
-        if(a[ai]%b[bi] == 0){
-            int gcd = min(a[ai],b[bi]);
-            if(gcd > maxGcd){
-                p1 = a[ai];
-                p2 = b[bi];
-                maxGcd = gcd;
-            }
-            break;
-        }else{
-            int currentgcd = gcd(a[ai],b[bi]);
-            cout<<endl<<"currentgcd - "<<currentgcd;
-            if(currentgcd > maxGcd){
-                maxGcd = currentgcd;
-                p1 = a[ai];
-                p2 = b[bi];
-            }
-        }
-        arrnum = (a[ai]>b[bi])?1:2;
-        if((ai==(n-1)) && (bi==(n-1))){
-            cout<<endl<<"debug 3";    
-            break;
-        }else
-        if(ai==(n-1) && arrnum == 1){
-            cout<<endl<<"debug 1";    
-            arrnum = 2;
-        }else
-        if(bi==(n-1) && arrnum == 2){
-            cout<<endl<<"debug 2";    
-            arrnum = 1;
-        }  
-
-
-        if(arrnum == 1){
-            ai++;
-        }else{
-            bi++;
-        }
-    }
-    cout<<endl<<"p1-"<<p1<<" p2-"<<p2<<endl;
-    // p1= a[ai];
-    // p2= b[bi];
-    cout<<(p1+p2);
+    int ans = maxSumGcd(a,b,n);    
+    cout<<ans;
     return 0;
 }
